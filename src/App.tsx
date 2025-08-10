@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import NotFound from "./pages/NotFound";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
+import OnboardingCreateProduct from "./pages/OnboardingCreateProduct";
 import { AuthProvider } from "./contexts/AuthContext";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import MainLayout from "./components/layout/MainLayout";
@@ -27,6 +28,16 @@ const App = () => (
                 <ProtectedRoute>
                   <MainLayout>
                     <Dashboard />
+                  </MainLayout>
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/onboarding"
+              element={
+                <ProtectedRoute>
+                  <MainLayout>
+                    <OnboardingCreateProduct />
                   </MainLayout>
                 </ProtectedRoute>
               }

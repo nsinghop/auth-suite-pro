@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Loader2 } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
+import { demoStorage } from "@/lib/demoStorage";
 
 const schema = z.object({
   email: z.string().email("Enter a valid email"),
@@ -45,7 +46,8 @@ const Login = () => {
     try {
       await login(values.email, values.password, values.remember);
       toast({ title: "Welcome back", description: "You have signed in successfully." });
-      navigate("/");
+      const next = demoStorage.hasProducts() ? "/" : "/onboarding";
+      navigate(next);
     } catch (e: any) {
       toast({ title: "Sign-in failed", description: e?.message || "Invalid credentials", variant: "destructive" });
     } finally {
@@ -91,6 +93,7 @@ const Login = () => {
                 "Sign in"
               )}
             </Button>
+            <p className="text-xs text-muted-foreground text-center">Demo mode: use any email and password to sign in.</p>
           </form>
         </CardContent>
       </Card>

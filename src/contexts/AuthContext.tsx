@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
-import api from "@/lib/axios";
+
 
 interface AuthContextType {
   token: string | null;
@@ -24,10 +24,9 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const login = async (email: string, password: string, remember: boolean) => {
     setLoading(true);
     try {
-      const res = await api.post("/api/login/", { email, password });
-      const tok: string = res.data?.token || res.data?.access || res.data?.key || "";
-      if (!tok) throw new Error("Invalid response from server.");
-      // Persist token
+      // Demo mode: accept any credentials and issue a fake token
+      await new Promise((r) => setTimeout(r, 500));
+      const tok = `demo_${btoa(email)}_${Date.now()}`;
       if (remember) {
         localStorage.setItem("authToken", tok);
       } else {
